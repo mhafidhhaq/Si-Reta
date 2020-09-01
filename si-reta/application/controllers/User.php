@@ -35,21 +35,21 @@ class User extends CI_Controller
 
     $pelamar = $this->db->get('pelamar')->result_array();
 
-    $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
+    $this->form_validation->set_rules('nama', 'Nama', 'required|trim|callback_nama_check', [
       'required' => 'Nama harus diisi!'
     ]);
     // form validation pada input pendidikan tidak berfungsi
     $this->form_validation->set_rules('pendidikan', 'Pendidikan', 'required', [
       'required' => 'Pendidikan terakhir harus dipilih!'
     ]);
-    $this->form_validation->set_rules('spesialisasi', 'Spesialisasi', 'required', [
+    $this->form_validation->set_rules('spesialisasi', 'Spesialisasi', 'required|callback_spesialisasi_check', [
       'required' => 'Spesialisasi harus diisi!'
     ]);
     $this->form_validation->set_rules('file', '', 'callback_file_check');
     $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
       'required' => 'Alamat harus diisi!'
     ]);
-    $this->form_validation->set_rules('tentang', 'Tentang', 'required|trim', [
+    $this->form_validation->set_rules('tentang', 'Tentang', 'required|trim|callback_tentang_check', [
       'required' => 'Tentang harus diisi!'
     ]);
     $this->form_validation->set_rules('telepon', 'Telepon', 'required|trim|numeric|min_length[11]|max_length[13]', [
@@ -123,6 +123,39 @@ class User extends CI_Controller
     } else {
       $this->form_validation->set_message('file_check', 'CV harus diupload!');
       return false;
+    }
+  }
+
+  public function nama_check()
+  {
+    $nama = trim($this->input->post('nama', true));
+    if (!preg_match("/^[a-zA-Z. ]*$/", $nama)) {
+      $this->form_validation->set_message('nama_check', 'Nama hanya boleh mengandung huruf, spasi, dan titik!');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public function spesialisasi_check()
+  {
+    $spesialisasi = trim($this->input->post('spesialisasi', true));
+    if (!preg_match("/^[a-zA-Z0-9., ]*$/", $spesialisasi)) {
+      $this->form_validation->set_message('spesialisasi_check', 'Spesialisasi hanya boleh mengandung huruf, angka, spasi, tanda titik, dan koma!');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public function tentang_check()
+  {
+    $tentang = trim($this->input->post('tentang', true));
+    if (!preg_match("/^[a-zA-Z0-9., ]*$/", $tentang)) {
+      $this->form_validation->set_message('tentang_check', 'Tentang hanya boleh mengandung huruf, angka, spasi, tanda titik, dan koma!');
+      return false;
+    } else {
+      return true;
     }
   }
 }
