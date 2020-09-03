@@ -44,8 +44,12 @@ class AdminModel extends CI_Model
     return $this->db->query($query);
   }
 
-  public function getPelamar($limit, $start)
+  public function getPelamar($limit, $start, $keyword = null)
   {
+    if ($keyword) {
+      $this->db->like('nama', $keyword);
+      $this->db->or_like('posisi', $keyword);
+    }
     $this->db->order_by('posisi', 'ASC');
     return $this->db->get('pelamar', $limit, $start)->result_array();
   }

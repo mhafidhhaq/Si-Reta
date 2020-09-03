@@ -22,37 +22,10 @@ class Admin extends CI_Controller
 
     // PAGINATION
     // config
-    $config['base_url'] = 'http://localhost/si-rena/admin/index';
+    $config['base_url'] = 'http://localhost/si-reta/admin/index';
     $config['total_rows'] = $this->admin->countAllLokerActive();
     $config['per_page'] = 5;
 
-    // styling
-    $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
-    $config['full_tag_close'] = '</ul></nav>';
-
-    $config['first_link'] = 'First';
-    $config['first_tag_open'] = '<li class="page-item">';
-    $config['first_tag_close'] = '</li>';
-
-    $config['last_link'] = 'Last';
-    $config['last_tag_open'] = '<li class="page-item">';
-    $config['last_tag_close'] = '</li>';
-
-    $config['next_link'] = '&raquo';
-    $config['next_tag_open'] = '<li class="page-item">';
-    $config['next_tag_close'] = '</li>';
-
-    $config['prev_link'] = '&laquo';
-    $config['prev_tag_open'] = '<li class="page-item">';
-    $config['prev_tag_close'] = '</li>';
-
-    $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-    $config['cur_tag_close'] = '</a></li>';
-
-    $config['num_tag_open'] = '<li class="page-item">';
-    $config['num_tag_close'] = '</li>';
-
-    $config['attributes'] = array('class' => 'page-link');
     // Inisialisasi
     $this->pagination->initialize($config);
     // END PAGINATION
@@ -136,44 +109,30 @@ class Admin extends CI_Controller
     $data['user'] = $this->admin->getAdmin();
     $data['start'] = $this->uri->segment(3);
 
+    // Ambil data keyword
+    if ($this->input->post('cari')) {
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
     // PAGINATION
     // config
-    $config['base_url'] = 'http://localhost/si-rena/admin/pelamar';
-    $config['total_rows'] = $this->admin->countAllPelamar();
+    // $config['total_rows'] = $this->admin->countAllPelamar();
+    $this->db->like('nama', $data['keyword']);
+    $this->db->or_like('posisi', $data['keyword']);
+    $this->db->from('pelamar');
+    $config['base_url'] = 'http://localhost/si-reta/admin/pelamar';
+    $config['total_rows'] = $this->db->count_all_results();
+    $data['total_rows'] = $config['total_rows'];
     $config['per_page'] = 5;
 
-    // styling
-    $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
-    $config['full_tag_close'] = '</ul></nav>';
-
-    $config['first_link'] = 'First';
-    $config['first_tag_open'] = '<li class="page-item">';
-    $config['first_tag_close'] = '</li>';
-
-    $config['last_link'] = 'Last';
-    $config['last_tag_open'] = '<li class="page-item">';
-    $config['last_tag_close'] = '</li>';
-
-    $config['next_link'] = '&raquo';
-    $config['next_tag_open'] = '<li class="page-item">';
-    $config['next_tag_close'] = '</li>';
-
-    $config['prev_link'] = '&laquo';
-    $config['prev_tag_open'] = '<li class="page-item">';
-    $config['prev_tag_close'] = '</li>';
-
-    $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-    $config['cur_tag_close'] = '</a></li>';
-
-    $config['num_tag_open'] = '<li class="page-item">';
-    $config['num_tag_close'] = '</li>';
-
-    $config['attributes'] = array('class' => 'page-link');
     // Inisialisasi
     $this->pagination->initialize($config);
     // END PAGINATION
 
-    $data['pelamar'] = $this->admin->getPelamar($config['per_page'], $data['start']);
+    $data['pelamar'] = $this->admin->getPelamar($config['per_page'], $data['start'], $data['keyword']);
 
     $this->load->view('templates/admin-header', $data);
     $this->load->view('templates/admin-sidebar');

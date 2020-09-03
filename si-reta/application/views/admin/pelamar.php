@@ -5,8 +5,21 @@
       <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
       <div class="row">
-        <div class="col-lg">
+        <div class="col-md-4">
+          <form action="<?= base_url('admin/pelamar'); ?>" method="post">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Cari Keyword" name="keyword" autocomplete="off" autofocus>
+              <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" name="cari">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-lg">
+          <h5>Hasil : <?= $total_rows; ?></h5>
           <?= $this->session->flashdata('message'); ?>
 
           <table class="table table-hover">
@@ -22,6 +35,15 @@
               </tr>
             </thead>
             <tbody>
+              <?php if (empty($pelamar)) : ?>
+                <tr>
+                  <td colspan="7">
+                    <div class="alert alert-danger" role="alert">
+                      Data tidak ditemukan!
+                    </div>
+                  </td>
+                </tr>
+              <?php endif; ?>
               <?php ++$start; ?>
               <?php foreach ($pelamar as $p) : ?>
                 <tr>

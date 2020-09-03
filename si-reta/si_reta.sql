@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2020 at 10:56 AM
+-- Generation Time: Sep 03, 2020 at 03:46 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -43,7 +43,7 @@ CREATE TABLE `loker` (
 INSERT INTO `loker` (`id`, `nama_lowongan`, `syarat`, `status`, `date_created`) VALUES
 (1, 'Programmer', '1. Mahir Java\r\n2. Mahir PHP\r\n3. Pengalaman minimal 2 tahun\r\n4. Lulusan IT', 'aktif', 1597975414),
 (2, 'System Analyst', '1. Pengalaman kerja minimal 2 tahun\r\n2. Ahli dalam analisis database', 'aktif', 1597975441),
-(3, 'Database Programmer', '1. Pengalaman minimal 2 tahun\r\n2. Ahli menggunakan MySQL Database\r\n3. Mampu bekerja secara tim ataupun individu', 'aktif', 1597975473);
+(8, 'Database Programmer', '1. Pengalaman minimal 2 tahun\r\n2. Ahli menggunakan MySQL Database\r\n3. Mampu bekerja secara tim ataupun individu', 'aktif', 1598434376);
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,10 @@ CREATE TABLE `pelamar` (
 --
 
 INSERT INTO `pelamar` (`id`, `posisi`, `nama`, `pendidikan`, `spesialisasi`, `cv`, `alamat`, `tentang`, `telepon`, `email`, `date_submitted`) VALUES
-(1, 'Programmer', 'M. Hafidh Dliyaul Haq', 'S1', 'Ahli dalam Java dan PHP', 'CV_MHafidh.pdf', 'Jalan Lapas Raya', 'Memiliki pengalaman kerja di bidang terkait selama 5 tahun, Mampu mengelola tim dengan baik, dan dapat bekerja secara tim ataupu', '082282036505', 'mhafidhdliyaulh11@gmail.com', 1598171870);
+(1, 'Programmer', 'M. Hafidh Dliyaul Haq', 'S1', 'Ahli dalam Java dan PHP', 'CV_MHafidh.pdf', 'Jalan Lapas Raya', 'Memiliki pengalaman kerja di bidang terkait selama 5 tahun, Mampu mengelola tim dengan baik, dan dapat bekerja secara tim ataupu', '082282036505', 'mhafidhdliyaulh11@gmail.com', 1598171870),
+(5, 'Programmer', 'joshua', 'SMA', 'Jago Coding', 'CV_MHafidh1.pdf', 'Jalan Lapas Raya', 'Saya Suka Coding', '082282036505', 'joshua@gmail.com', 1599096692),
+(6, 'Database Programmer', 'joshua', 'S1', 'jago coding, java, dan db.', 'CV_MHafidh2.pdf', 'Jalan Lapas Raya', 'Saya Suka Coding', '082282036505', 'achmad.14117051@student.itera.ac.id', 1599096706),
+(7, 'System Analyst', 'Hafidh', 'S2', 'Ahli dalam Java dan PHP', 'CV_MHafidh3.pdf', 'Jalan Lapas Raya', 'Memiliki pengalaman kerja di bidang terkait selama 5 tahun, Mampu mengelola tim dengan baik, dan dapat bekerja secara tim ataupu', '082282036505', 'mhafidhdliyaulh11@gmail.com', 1599096726);
 
 -- --------------------------------------------------------
 
@@ -121,13 +124,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `loker`
 --
 ALTER TABLE `loker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `pelamar`
 --
 ALTER TABLE `pelamar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
